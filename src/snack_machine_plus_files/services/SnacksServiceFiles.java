@@ -45,10 +45,32 @@ public class SnacksServiceFiles implements ISnacksService {
         this.addSnack(new Snack("Sugar", 120));
         this.addSnack(new Snack("Drink", 20));
         this.addSnack(new Snack("Chocolate", 60));
-
-
-
     }
+
+    private List<Snack> getSnacksFromFile(){
+        ArrayList<Snack> snacks = new ArrayList<>();
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(FILE_NAME));
+
+            for (String line: lines) {
+                // getting the values of the file
+                String[] snackLine = line.split(",");
+                // getting name and price needed to create the snack again
+                String name = snackLine[1];
+                double price = Double.parseDouble(snackLine[1]);
+                // creating the snack and adding to the List
+                Snack snack = new Snack(name, price);
+                snacks.add(snack);
+            }
+
+        } catch ( Exception e) {
+            System.out.println("Error reading the file: " + e.getMessage());
+        }
+
+        return snacks;
+    }
+
 
     @Override
     public void addSnack(Snack snack) {
@@ -67,7 +89,7 @@ public class SnacksServiceFiles implements ISnacksService {
             isAdding = file.exists();
             PrintWriter output = new PrintWriter(new FileWriter(file, isAdding));
             // adding the snack
-            output.println(snack);
+            output.println(snack.writeSnack());
             output.close();
 
         } catch (Exception e) {
@@ -83,6 +105,6 @@ public class SnacksServiceFiles implements ISnacksService {
 
     @Override
     public List<Snack> getSnacks() {
-        return List.of();
+        return null;
     }
 }

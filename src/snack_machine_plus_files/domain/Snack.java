@@ -47,6 +47,10 @@ public class Snack implements Serializable {
     }
 
     // methods
+    public String writeSnack(){
+        return snackId + "," + snackName + "," + snackPrice;
+    }
+
     @Override
     public String toString() {
         return "-" + this.snackId + ". " + snackName + ", price: " + snackPrice;

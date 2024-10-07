@@ -2,6 +2,7 @@ package snack_machine_plus_files.presentation;
 
 import snack_machine_plus_files.domain.Snack;
 import snack_machine_plus_files.services.ISnacksService;
+import snack_machine_plus_files.services.SnacksServiceFiles;
 import snack_machine_plus_files.services.SnacksServiceList;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class SnackMachine {
         boolean exit = false;
         Scanner scan = new Scanner(System.in);
         // Creating the object of SnackService
-        ISnacksService servicioSnacks = new SnacksServiceList();
+        ISnacksService servicioSnacks = new SnacksServiceFiles();
 
         // List to stored adquired products
         List<Snack> products = new ArrayList<>();
