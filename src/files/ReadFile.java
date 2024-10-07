@@ -21,6 +21,8 @@ public class ReadFile {
                 if ( line != null)  System.out.println(line);
             } while (line != null);
 
+            // it is needed to close the file after use it
+            input.close();
         } catch (FileNotFoundException e) {
             System.out.println("There was an error: " + e.getMessage());
         } catch (IOException e) {

@@ -2,3 +2,7 @@ This file
 will be read
 on package files
 class ReadFiles
+and will be read also on
+ReadFullFille
+using the new io method
+readAllLines
