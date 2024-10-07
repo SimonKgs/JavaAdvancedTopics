@@ -51,7 +51,10 @@ public class SnackMachine {
             case 1 -> buySnack(scan, products);
             case 2 -> showTicket(products);
             case 3 -> addSnack(scan);
-            case 4 -> exit = true;
+            case 4 -> {
+                System.out.println("Bye");
+                exit = true;
+            }
         }
 
         return exit;
