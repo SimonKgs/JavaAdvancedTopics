@@ -19,7 +19,7 @@ public class SnackMachine {
         boolean exit = false;
         Scanner scan = new Scanner(System.in);
         // Creating the object of SnackService
-        ISnacksService servicioSnacks = new SnacksServiceFiles();
+        ISnacksService snacksService = new SnacksServiceFiles();
 
         // List to stored adquired products
         List<Snack> products = new ArrayList<>();
@@ -27,7 +27,7 @@ public class SnackMachine {
         while (!exit) {
             try {
                 int option = showMenu(scan);
-                exit = executeOptions(option, scan, products, servicioSnacks);
+                exit = executeOptions(option, scan, products, snacksService);
             } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
             }
@@ -36,10 +36,10 @@ public class SnackMachine {
             }
 
         }
-
     }
 
     private static int showMenu(Scanner scan){
+
         System.out.println("""
                 ====================
                 1. Buy Snack
@@ -53,12 +53,12 @@ public class SnackMachine {
         return Integer.parseInt(scan.nextLine());
     }
 
-    private static boolean executeOptions(int option, Scanner scan, List<Snack> products, ISnacksService servicioSnacks){
+    private static boolean executeOptions(int option, Scanner scan, List<Snack> products, ISnacksService snacksService){
         boolean exit = false;
         switch (option) {
-            case 1 -> buySnack(scan, products, servicioSnacks);
+            case 1 -> buySnack(scan, products, snacksService);
             case 2 -> showTicket(products);
-            case 3 -> addSnack(scan, servicioSnacks);
+            case 3 -> addSnack(scan, snacksService);
             case 4 -> {
                 System.out.println("Bye");
                 exit = true;
@@ -68,13 +68,13 @@ public class SnackMachine {
         return exit;
     }
 
-    public static void buySnack(Scanner scan, List<Snack> products, ISnacksService servicioSnacks){
-        servicioSnacks.showSnacks(); // show the available inventory
+    public static void buySnack(Scanner scan, List<Snack> products, ISnacksService snacksService){
+        snacksService.showSnacks(); // show the available inventory
         System.out.println("Select a snack (id): ");
         int snackId = Integer.parseInt(scan.nextLine());
         // check the id is in the list
         boolean snackFound = false;
-        for (Snack snack: servicioSnacks.getSnacks()) {
+        for (Snack snack: snacksService.getSnacks()) {
             if (snackId == snack.getSnackId()){
                 // adding the snack to bought products
                 products.add(snack);
@@ -99,12 +99,12 @@ public class SnackMachine {
 
     }
 
-    private static void addSnack(Scanner scan, ISnacksService servicioSnacks){
+    private static void addSnack(Scanner scan, ISnacksService snacksService){
         System.out.println("Insert the name of the snack");
         String name = scan.nextLine();
         System.out.println("Insert the price of the snack");
         int price = Integer.parseInt(scan.nextLine());
-        servicioSnacks.addSnack(new Snack(name, price));
+        snacksService.addSnack(new Snack(name, price));
         System.out.println("New snack Added");
     }
 

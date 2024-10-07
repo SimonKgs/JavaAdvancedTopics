@@ -25,7 +25,7 @@ public class SnacksServiceFiles implements ISnacksService {
             exists = file.exists();
 
             if ( exists ) {
-                // this.snacks.getSnacks();
+                this.snacks = getSnacksFromFile();
             } else {
                 PrintWriter output = new PrintWriter(new FileWriter(file));
                 output.close(); // save on disk
@@ -58,7 +58,7 @@ public class SnacksServiceFiles implements ISnacksService {
                 String[] snackLine = line.split(",");
                 // getting name and price needed to create the snack again
                 String name = snackLine[1];
-                double price = Double.parseDouble(snackLine[1]);
+                double price = Double.parseDouble(snackLine[2]);
                 // creating the snack and adding to the List
                 Snack snack = new Snack(name, price);
                 snacks.add(snack);
@@ -100,11 +100,17 @@ public class SnacksServiceFiles implements ISnacksService {
 
     @Override
     public void showSnacks() {
+        System.out.println("---Available Snacks-----");
+        String snacksInventory = "";
+        for (Snack snack: this.snacks) {
+            snacksInventory += snack + "\n";
+        }
 
+        System.out.println(snacksInventory);
     }
 
     @Override
     public List<Snack> getSnacks() {
-        return null;
+        return this.snacks;
     }
 }
